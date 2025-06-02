@@ -5,11 +5,115 @@
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>RP Medical Form Generator</title>
 <style>
-  body { font-family: Arial, sans-serif; margin: 2rem; max-width: 700px; }
-  label { font-weight: bold; display: block; margin-top: 1rem; }
-  textarea, input, select { width: 100%; padding: 0.5rem; margin-top: 0.25rem; box-sizing: border-box; }
-  button { margin-top: 1rem; padding: 0.75rem 1.25rem; font-size: 1rem; cursor: pointer; }
-  pre { background: #f4f4f4; padding: 1rem; margin-top: 1rem; white-space: pre-wrap; }
+  /* Dark EMS-style theme */
+  body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #121212;
+    color: #e0e0e0;
+    margin: 1.5rem auto;
+    max-width: 600px;
+    padding: 1rem;
+    line-height: 1.3;
+  }
+  h1 {
+    font-weight: 700;
+    text-align: center;
+    margin-bottom: 1rem;
+    color: #4caf50; /* EMS green */
+    letter-spacing: 0.1em;
+  }
+  form {
+    background: #1e1e1e;
+    border-radius: 8px;
+    padding: 1rem 1.5rem;
+    box-shadow: 0 0 12px #0f9d58aa;
+  }
+  label {
+    display: block;
+    margin-top: 0.8rem;
+    font-weight: 600;
+    font-size: 0.9rem;
+    color: #b2ff59;
+  }
+  input[type="text"],
+  input[type="number"],
+  select,
+  textarea {
+    width: 100%;
+    background: #2a2a2a;
+    border: 1px solid #4caf50;
+    border-radius: 4px;
+    padding: 6px 8px;
+    color: #e0e0e0;
+    font-size: 0.9rem;
+    font-weight: 400;
+    margin-top: 0.2rem;
+    resize: vertical;
+    transition: border-color 0.3s ease;
+  }
+  input[type="text"]:focus,
+  input[type="number"]:focus,
+  select:focus,
+  textarea:focus {
+    outline: none;
+    border-color: #a5d6a7;
+    background: #353535;
+  }
+  textarea {
+    min-height: 50px;
+    max-height: 120px;
+  }
+  hr {
+    margin: 1.5rem 0 1rem 0;
+    border-color: #4caf50;
+  }
+  button {
+    background-color: #4caf50;
+    border: none;
+    color: #121212;
+    padding: 10px 18px;
+    margin-top: 1.2rem;
+    font-size: 1rem;
+    font-weight: 700;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    margin-right: 8px;
+  }
+  button:hover {
+    background-color: #81c784;
+  }
+  pre {
+    background-color: #212121;
+    border: 1px solid #4caf50;
+    padding: 1rem;
+    margin-top: 1.5rem;
+    white-space: pre-wrap;
+    color: #b2ff59;
+    font-size: 0.9rem;
+    border-radius: 6px;
+  }
+  /* Compact form layout */
+  .row {
+    display: flex;
+    gap: 12px;
+    flex-wrap: wrap;
+    align-items: center;
+  }
+  .row > label {
+    flex: 1 1 45%;
+    margin-top: 0.8rem;
+  }
+  /* Make textarea full width inside row */
+  .row > label textarea {
+    width: 100%;
+  }
+  /* Responsive adjustment */
+  @media (max-width: 480px) {
+    .row > label {
+      flex: 1 1 100%;
+    }
+  }
 </style>
 </head>
 <body>
@@ -17,27 +121,30 @@
 <h1>RP Medical Form Generator</h1>
 
 <form id="rpForm">
-  <label>Age
-    <input type="number" id="age" placeholder="e.g. 34" min="0" />
-  </label>
 
-  <label>Gender
-    <select id="gender">
-      <option value="">Select...</option>
-      <option>Male</option>
-      <option>Female</option>
-      <option>Other</option>
-      <option>Unknown</option>
-    </select>
-  </label>
+  <div class="row">
+    <label>Age
+      <input type="number" id="age" placeholder="e.g. 34" min="0" />
+    </label>
+    <label>Gender
+      <select id="gender">
+        <option value="">Select...</option>
+        <option>Male</option>
+        <option>Female</option>
+        <option>Other</option>
+        <option>Unknown</option>
+      </select>
+    </label>
+  </div>
 
-  <label>Pulse (rate and quality)
-    <input type="text" id="pulse" placeholder="e.g. 88 bpm, strong" />
-  </label>
-
-  <label>Breathing (Y/N, rate and quality if Y)
-    <input type="text" id="breathing" placeholder="e.g. Y, 20 breaths/min, labored" />
-  </label>
+  <div class="row">
+    <label>Pulse (rate and quality)
+      <input type="text" id="pulse" placeholder="e.g. 88 bpm, strong" />
+    </label>
+    <label>Breathing (Y/N, rate & quality if Y)
+      <input type="text" id="breathing" placeholder="e.g. Y, 20/min, labored" />
+    </label>
+  </div>
 
   <label>Level of Consciousness
     <select id="loc">
@@ -50,20 +157,21 @@
   </label>
 
   <label>Injuries
-    <textarea id="injuries" rows="3" placeholder="List all injuries here"></textarea>
+    <textarea id="injuries" rows="2" placeholder="List injuries here"></textarea>
   </label>
 
   <label>Additional Symptoms
-    <textarea id="symptoms" rows="2" placeholder="e.g. bleeding, nausea"></textarea>
+    <textarea id="symptoms" rows="2" placeholder="Bleeding, nausea, etc."></textarea>
   </label>
 
-  <label>Medical History
-    <textarea id="history" rows="2" placeholder="If known"></textarea>
-  </label>
-
-  <label>Allergies
-    <textarea id="allergies" rows="2" placeholder="If known"></textarea>
-  </label>
+  <div class="row">
+    <label>Medical History
+      <textarea id="history" rows="2" placeholder="If known"></textarea>
+    </label>
+    <label>Allergies
+      <textarea id="allergies" rows="2" placeholder="If known"></textarea>
+    </label>
+  </div>
 
   <hr />
 
@@ -71,13 +179,14 @@
     <input type="text" id="incident" placeholder="e.g. MVA, Mass Casualty" />
   </label>
 
-  <label>Number of Patients
-    <input type="number" id="numPatients" min="1" value="1" />
-  </label>
-
-  <label>Scene Safety
-    <textarea id="sceneSafety" rows="2" placeholder="Any hazards or risks?"></textarea>
-  </label>
+  <div class="row">
+    <label>Number of Patients
+      <input type="number" id="numPatients" min="1" value="1" />
+    </label>
+    <label>Scene Safety
+      <textarea id="sceneSafety" rows="2" placeholder="Any hazards or risks?"></textarea>
+    </label>
+  </div>
 
   <label>Environmental Conditions
     <textarea id="environment" rows="2" placeholder="e.g. rain, darkness"></textarea>
