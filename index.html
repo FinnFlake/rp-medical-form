@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>RP Medical Form Generator</title>
+<style>
+  body { font-family: Arial, sans-serif; margin: 2rem; max-width: 700px; }
+  label { font-weight: bold; display: block; margin-top: 1rem; }
+  textarea, input, select { width: 100%; padding: 0.5rem; margin-top: 0.25rem; box-sizing: border-box; }
+  button { margin-top: 1rem; padding: 0.75rem 1.25rem; font-size: 1rem; cursor: pointer; }
+  pre { background: #f4f4f4; padding: 1rem; margin-top: 1rem; white-space: pre-wrap; }
+</style>
+</head>
+<body>
+
+<h1>RP Medical Form Generator</h1>
+
+<form id="rpForm">
+  <label>Age
+    <input type="number" id="age" placeholder="e.g. 34" min="0" />
+  </label>
+
+  <label>Gender
+    <select id="gender">
+      <option value="">Select...</option>
+      <option>Male</option>
+      <option>Female</option>
+      <option>Other</option>
+      <option>Unknown</option>
+    </select>
+  </label>
+
+  <label>Pulse (rate and quality)
+    <input type="text" id="pulse" placeholder="e.g. 88 bpm, strong" />
+  </label>
+
+  <label>Breathing (Y/N, rate and quality if Y)
+    <input type="text" id="breathing" placeholder="e.g. Y, 20 breaths/min, labored" />
+  </label>
+
+  <label>Level of Consciousness
+    <select id="loc">
+      <option value="">Select...</option>
+      <option>Alert</option>
+      <option>Responsive to verbal</option>
+      <option>Responsive to pain</option>
+      <option>Unresponsive</option>
+    </select>
+  </label>
+
+  <label>Injuries
+    <textarea id="injuries" rows="3" placeholder="List all injuries here"></textarea>
+  </label>
+
+  <label>Additional Symptoms
+    <textarea id="symptoms" rows="2" placeholder="e.g. bleeding, nausea"></textarea>
+  </label>
+
+  <label>Medical History
+    <textarea id="history" rows="2" placeholder="If known"></textarea>
+  </label>
+
+  <label>Allergies
+    <textarea id="allergies" rows="2" placeholder="If known"></textarea>
+  </label>
+
+  <hr />
+
+  <label>Type of Incident
+    <input type="text" id="incident" placeholder="e.g. MVA, Mass Casualty" />
+  </label>
+
+  <label>Number of Patients
+    <input type="number" id="numPatients" min="1" value="1" />
+  </label>
+
+  <label>Scene Safety
+    <textarea id="sceneSafety" rows="2" placeholder="Any hazards or risks?"></textarea>
+  </label>
+
+  <label>Environmental Conditions
+    <textarea id="environment" rows="2" placeholder="e.g. rain, darkness"></textarea>
+  </label>
+
+  <label>Access to Equipment
+    <textarea id="equipment" rows="2" placeholder="What medical tools are available?"></textarea>
+  </label>
+
+  <label>Additional Notes
+    <textarea id="notes" rows="2" placeholder="e.g. patient trapped"></textarea>
+  </label>
+
+  <button type="button" onclick="generateText()">Generate Text</button>
+  <button type="button" onclick="copyText()">Copy to Clipboard</button>
+</form>
+
+<pre id="output"></pre>
+
+<script>
+function generateText() {
+  const age = document.getElementById('age').value.trim();
+  const gender = document.getElementById('gender').value.trim();
+  const pulse = document.getElementById('pulse').value.trim();
+  const breathing = document.getElementById('breathing').value.trim();
+  const loc = document.getElementById('loc').value.trim();
+  const injuries = document.getElementById('injuries').value.trim();
+  const symptoms = document.getElementById('symptoms').value.trim();
+  const history = document.getElementById('history').value.trim();
+  const allergies = document.getElementById('allergies').value.trim();
+
+  const incident = document.getElementById('incident').value.trim();
+  const numPatients = document.getElementById('numPatients').value.trim();
+  const sceneSafety = document.getElementById('sceneSafety').value.trim();
+  const environment = document.getElementById('environment').value.trim();
+  const equipment = document.getElementById('equipment').value.trim();
+  const notes = document.getElementById('notes').value.trim();
+
+  let output = `Patient Information\n`;
+  if(age) output += `Age: ${age}\n`;
+  if(gender) output += `Gender: ${gender}\n`;
+  if(pulse) output += `Pulse: ${pulse}\n`;
+  if(breathing) output += `Breathing: ${breathing}\n`;
+  if(loc) output += `Level of Consciousness: ${loc}\n`;
+  if(injuries) output += `Injuries: ${injuries}\n`;
+  if(symptoms) output += `Additional Symptoms: ${symptoms}\n`;
+  if(history) output += `Medical History: ${history}\n`;
+  if(allergies) output += `Allergies: ${allergies}\n`;
+
+  output += `\nScene Information\n`;
+  if(incident) output += `Type of Incident: ${incident}\n`;
+  if(numPatients) output += `Number of Patients: ${numPatients}\n`;
+  if(sceneSafety) output += `Scene Safety: ${sceneSafety}\n`;
+  if(environment) output += `Environmental Conditions: ${environment}\n`;
+  if(equipment) output += `Access to Equipment: ${equipment}\n`;
+  if(notes) output += `Additional Notes: ${notes}\n`;
+
+  document.getElementById('output').textContent = output;
+}
+
+function copyText() {
+  const output = document.getElementById('output').textContent;
+  if(!output) {
+    alert("Nothing to copy! Generate text first.");
+    return;
+  }
+  navigator.clipboard.writeText(output).then(() => {
+    alert("Copied to clipboard!");
+  }).catch(() => {
+    alert("Failed to copy.");
+  });
+}
+</script>
+
+</body>
+</html>
