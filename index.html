@@ -1,265 +1,260 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>RP Medical Form Generator</title>
-<style>
-  /* Dark EMS-style theme */
-  body {
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    background-color: #121212;
-    color: #e0e0e0;
-    margin: 1.5rem auto;
-    max-width: 600px;
-    padding: 1rem;
-    line-height: 1.3;
-  }
-  h1 {
-    font-weight: 700;
-    text-align: center;
-    margin-bottom: 1rem;
-    color: #4caf50; /* EMS green */
-    letter-spacing: 0.1em;
-  }
-  form {
-    background: #1e1e1e;
-    border-radius: 8px;
-    padding: 1rem 1.5rem;
-    box-shadow: 0 0 12px #0f9d58aa;
-  }
-  label {
-    display: block;
-    margin-top: 0.8rem;
-    font-weight: 600;
-    font-size: 0.9rem;
-    color: #b2ff59;
-  }
-  input[type="text"],
-  input[type="number"],
-  select,
-  textarea {
-    width: 100%;
-    background: #2a2a2a;
-    border: 1px solid #4caf50;
-    border-radius: 4px;
-    padding: 6px 8px;
-    color: #e0e0e0;
-    font-size: 0.9rem;
-    font-weight: 400;
-    margin-top: 0.2rem;
-    resize: vertical;
-    transition: border-color 0.3s ease;
-  }
-  input[type="text"]:focus,
-  input[type="number"]:focus,
-  select:focus,
-  textarea:focus {
-    outline: none;
-    border-color: #a5d6a7;
-    background: #353535;
-  }
-  textarea {
-    min-height: 50px;
-    max-height: 120px;
-  }
-  hr {
-    margin: 1.5rem 0 1rem 0;
-    border-color: #4caf50;
-  }
-  button {
-    background-color: #4caf50;
-    border: none;
-    color: #121212;
-    padding: 10px 18px;
-    margin-top: 1.2rem;
-    font-size: 1rem;
-    font-weight: 700;
-    border-radius: 6px;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-    margin-right: 8px;
-  }
-  button:hover {
-    background-color: #81c784;
-  }
-  pre {
-    background-color: #212121;
-    border: 1px solid #4caf50;
-    padding: 1rem;
-    margin-top: 1.5rem;
-    white-space: pre-wrap;
-    color: #b2ff59;
-    font-size: 0.9rem;
-    border-radius: 6px;
-  }
-  /* Compact form layout */
-  .row {
-    display: flex;
-    gap: 12px;
-    flex-wrap: wrap;
-    align-items: center;
-  }
-  .row > label {
-    flex: 1 1 45%;
-    margin-top: 0.8rem;
-  }
-  /* Make textarea full width inside row */
-  .row > label textarea {
-    width: 100%;
-  }
-  /* Responsive adjustment */
-  @media (max-width: 480px) {
-    .row > label {
-      flex: 1 1 100%;
-    }
-  }
-</style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FD/EMS Information Forms</title>
+    <style>
+        body {
+            font-family: 'Helvetica Neue', Arial, sans-serif;
+            line-height: 1.6;
+            margin: 0;
+            padding: 20px;
+            background-color: #f0f2f5;
+            color: #333;
+        }
+        
+        h1 {
+            text-align: center;
+            color: #d9534f;
+            margin-bottom: 30px;
+        }
+        
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            gap: 20px;
+        }
+        
+        .form-container {
+            flex: 1 1 350px;
+            background-color: white;
+            border-radius: 8px;
+            padding: 20px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        
+        h2 {
+            color: #d9534f;
+            border-bottom: 2px solid #d9534f;
+            padding-bottom: 10px;
+            margin-top: 0;
+        }
+        
+        .form-group {
+            margin-bottom: 15px;
+        }
+        
+        label {
+            display: block;
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+        
+        input, textarea {
+            width: 100%;
+            padding: 8px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-family: inherit;
+            font-size: 14px;
+        }
+        
+        textarea {
+            resize: vertical;
+            min-height: 60px;
+        }
+        
+        button {
+            background-color: #d9534f;
+            color: white;
+            border: none;
+            padding: 10px 15px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-weight: bold;
+            display: block;
+            margin: 20px auto 0;
+            width: 200px;
+        }
+        
+        button:hover {
+            background-color: #c9302c;
+        }
+        
+        .output-container {
+            margin-top: 20px;
+            background-color: #f8f9fa;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            padding: 15px;
+        }
+        
+        .output-text {
+            white-space: pre-wrap;
+            font-family: monospace;
+        }
+        
+        @media (max-width: 768px) {
+            .container {
+                flex-direction: column;
+            }
+        }
+    </style>
 </head>
 <body>
+    <h1>FD/EMS Information Forms</h1>
+    
+    <div class="container">
+        <div class="form-container">
+            <h2>PATIENT INFO</h2>
+            <div class="form-group">
+                <label for="ageGender">Age/Gender:</label>
+                <input type="text" id="ageGender" placeholder="e.g. 34/M">
+            </div>
+            
+            <div class="form-group">
+                <label for="loc">LOC:</label>
+                <input type="text" id="loc" placeholder="Alert / V responsive / P responsive / Unresponsive">
+            </div>
+            
+            <div class="form-group">
+                <label for="pulse">Pulse:</label>
+                <input type="text" id="pulse" placeholder="rate, rhythm, quality; e.g. 88 bpm, regular, strong">
+            </div>
+            
+            <div class="form-group">
+                <label for="resp">Resp:</label>
+                <input type="text" id="resp" placeholder="rate, effort, quality; e.g. 20/min, labored, shallow / None">
+            </div>
+            
+            <div class="form-group">
+                <label for="injuries">Injuries:</label>
+                <input type="text" id="injuries" placeholder="brief list, e.g. GSW chest, left femur fracture">
+            </div>
+            
+            <div class="form-group">
+                <label for="symptoms">Symptoms:</label>
+                <input type="text" id="symptoms" placeholder="bleeding, pain, nausea, etc.">
+            </div>
+            
+            <div class="form-group">
+                <label for="medHx">Med HX / Allergies:</label>
+                <input type="text" id="medHx" placeholder="short summary or NKA">
+            </div>
+            
+            <button onclick="copyPatientInfo()">Copy Patient Info</button>
+            
+            <div class="output-container">
+                <div id="patientOutput" class="output-text"></div>
+            </div>
+        </div>
+        
+        <div class="form-container">
+            <h2>SCENE INFO</h2>
+            <div class="form-group">
+                <label for="incident">Incident:</label>
+                <input type="text" id="incident" placeholder="e.g. MVA, Mass Casualty, Fall">
+            </div>
+            
+            <div class="form-group">
+                <label for="patients">Patients:</label>
+                <input type="text" id="patients" placeholder="number">
+            </div>
+            
+            <div class="form-group">
+                <label for="hazards">Hazards:</label>
+                <input type="text" id="hazards" placeholder="fire, traffic, chemicals, downed wires, etc.">
+            </div>
+            
+            <div class="form-group">
+                <label for="env">Env:</label>
+                <input type="text" id="env" placeholder="weather, lighting, terrain">
+            </div>
+            
+            <div class="form-group">
+                <label for="equip">Equip:</label>
+                <input type="text" id="equip" placeholder="available kit/tools, e.g. BLS bag, AED, O2">
+            </div>
+            
+            <div class="form-group">
+                <label for="notes">Notes:</label>
+                <textarea id="notes" placeholder="patient trapped, difficult access, etc."></textarea>
+            </div>
+            
+            <button onclick="copySceneInfo()">Copy Scene Info</button>
+            
+            <div class="output-container">
+                <div id="sceneOutput" class="output-text"></div>
+            </div>
+        </div>
+    </div>
 
-<h1>RP Medical Form Generator</h1>
-
-<form id="rpForm">
-
-  <div class="row">
-    <label>Age
-      <input type="number" id="age" placeholder="e.g. 34" min="0" />
-    </label>
-    <label>Gender
-      <select id="gender">
-        <option value="">Select...</option>
-        <option>Male</option>
-        <option>Female</option>
-        <option>Other</option>
-        <option>Unknown</option>
-      </select>
-    </label>
-  </div>
-
-  <div class="row">
-    <label>Pulse (rate and quality)
-      <input type="text" id="pulse" placeholder="e.g. 88 bpm, strong" />
-    </label>
-    <label>Breathing (Y/N, rate & quality if Y)
-      <input type="text" id="breathing" placeholder="e.g. Y, 20/min, labored" />
-    </label>
-  </div>
-
-  <label>Level of Consciousness
-    <select id="loc">
-      <option value="">Select...</option>
-      <option>Alert</option>
-      <option>Responsive to verbal</option>
-      <option>Responsive to pain</option>
-      <option>Unresponsive</option>
-    </select>
-  </label>
-
-  <label>Injuries
-    <textarea id="injuries" rows="2" placeholder="List injuries here"></textarea>
-  </label>
-
-  <label>Additional Symptoms
-    <textarea id="symptoms" rows="2" placeholder="Bleeding, nausea, etc."></textarea>
-  </label>
-
-  <div class="row">
-    <label>Medical History
-      <textarea id="history" rows="2" placeholder="If known"></textarea>
-    </label>
-    <label>Allergies
-      <textarea id="allergies" rows="2" placeholder="If known"></textarea>
-    </label>
-  </div>
-
-  <hr />
-
-  <label>Type of Incident
-    <input type="text" id="incident" placeholder="e.g. MVA, Mass Casualty" />
-  </label>
-
-  <div class="row">
-    <label>Number of Patients
-      <input type="number" id="numPatients" min="1" value="1" />
-    </label>
-    <label>Scene Safety
-      <textarea id="sceneSafety" rows="2" placeholder="Any hazards or risks?"></textarea>
-    </label>
-  </div>
-
-  <label>Environmental Conditions
-    <textarea id="environment" rows="2" placeholder="e.g. rain, darkness"></textarea>
-  </label>
-
-  <label>Access to Equipment
-    <textarea id="equipment" rows="2" placeholder="What medical tools are available?"></textarea>
-  </label>
-
-  <label>Additional Notes
-    <textarea id="notes" rows="2" placeholder="e.g. patient trapped"></textarea>
-  </label>
-
-  <button type="button" onclick="generateText()">Generate Text</button>
-  <button type="button" onclick="copyText()">Copy to Clipboard</button>
-</form>
-
-<pre id="output"></pre>
-
-<script>
-function generateText() {
-  const age = document.getElementById('age').value.trim();
-  const gender = document.getElementById('gender').value.trim();
-  const pulse = document.getElementById('pulse').value.trim();
-  const breathing = document.getElementById('breathing').value.trim();
-  const loc = document.getElementById('loc').value.trim();
-  const injuries = document.getElementById('injuries').value.trim();
-  const symptoms = document.getElementById('symptoms').value.trim();
-  const history = document.getElementById('history').value.trim();
-  const allergies = document.getElementById('allergies').value.trim();
-
-  const incident = document.getElementById('incident').value.trim();
-  const numPatients = document.getElementById('numPatients').value.trim();
-  const sceneSafety = document.getElementById('sceneSafety').value.trim();
-  const environment = document.getElementById('environment').value.trim();
-  const equipment = document.getElementById('equipment').value.trim();
-  const notes = document.getElementById('notes').value.trim();
-
-  let output = `Patient Information\n`;
-  if(age) output += `Age: ${age}\n`;
-  if(gender) output += `Gender: ${gender}\n`;
-  if(pulse) output += `Pulse: ${pulse}\n`;
-  if(breathing) output += `Breathing: ${breathing}\n`;
-  if(loc) output += `Level of Consciousness: ${loc}\n`;
-  if(injuries) output += `Injuries: ${injuries}\n`;
-  if(symptoms) output += `Additional Symptoms: ${symptoms}\n`;
-  if(history) output += `Medical History: ${history}\n`;
-  if(allergies) output += `Allergies: ${allergies}\n`;
-
-  output += `\nScene Information\n`;
-  if(incident) output += `Type of Incident: ${incident}\n`;
-  if(numPatients) output += `Number of Patients: ${numPatients}\n`;
-  if(sceneSafety) output += `Scene Safety: ${sceneSafety}\n`;
-  if(environment) output += `Environmental Conditions: ${environment}\n`;
-  if(equipment) output += `Access to Equipment: ${equipment}\n`;
-  if(notes) output += `Additional Notes: ${notes}\n`;
-
-  document.getElementById('output').textContent = output;
-}
-
-function copyText() {
-  const output = document.getElementById('output').textContent;
-  if(!output) {
-    alert("Nothing to copy! Generate text first.");
-    return;
-  }
-  navigator.clipboard.writeText(output).then(() => {
-    alert("Copied to clipboard!");
-  }).catch(() => {
-    alert("Failed to copy.");
-  });
-}
-</script>
-
+    <script>
+        function generatePatientInfo() {
+            const ageGender = document.getElementById('ageGender').value || '[Not provided]';
+            const loc = document.getElementById('loc').value || '[Not provided]';
+            const pulse = document.getElementById('pulse').value || '[Not provided]';
+            const resp = document.getElementById('resp').value || '[Not provided]';
+            const injuries = document.getElementById('injuries').value || '[Not provided]';
+            const symptoms = document.getElementById('symptoms').value || '[Not provided]';
+            const medHx = document.getElementById('medHx').value || '[Not provided]';
+            
+            return `PATIENT INFO
+- Age/Gender: ${ageGender}
+- LOC: ${loc}
+- Pulse: ${pulse}
+- Resp: ${resp}
+- Injuries: ${injuries}
+- Symptoms: ${symptoms}
+- Med HX / Allergies: ${medHx}`;
+        }
+        
+        function generateSceneInfo() {
+            const incident = document.getElementById('incident').value || '[Not provided]';
+            const patients = document.getElementById('patients').value || '[Not provided]';
+            const hazards = document.getElementById('hazards').value || '[Not provided]';
+            const env = document.getElementById('env').value || '[Not provided]';
+            const equip = document.getElementById('equip').value || '[Not provided]';
+            const notes = document.getElementById('notes').value || '[Not provided]';
+            
+            return `SCENE INFO
+- Incident: ${incident}
+- Patients: ${patients}
+- Hazards: ${hazards}
+- Env: ${env}
+- Equip: ${equip}
+- Notes: ${notes}`;
+        }
+        
+        function copyPatientInfo() {
+            const patientInfo = generatePatientInfo();
+            document.getElementById('patientOutput').textContent = patientInfo;
+            
+            navigator.clipboard.writeText(patientInfo)
+                .then(() => {
+                    alert('Patient info copied to clipboard!');
+                })
+                .catch(err => {
+                    console.error('Could not copy text: ', err);
+                });
+        }
+        
+        function copySceneInfo() {
+            const sceneInfo = generateSceneInfo();
+            document.getElementById('sceneOutput').textContent = sceneInfo;
+            
+            navigator.clipboard.writeText(sceneInfo)
+                .then(() => {
+                    alert('Scene info copied to clipboard!');
+                })
+                .catch(err => {
+                    console.error('Could not copy text: ', err);
+                });
+        }
+    </script>
 </body>
 </html>
